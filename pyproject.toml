@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "fornecedor-de-jogos"
+version = "0.1.0"
+description = ""
+authors = ["AliceTrinta <alice.trinta@nubank.com.br>"]
+readme = "README.md"
+packages = [{include = "fornecedor_de_jogos"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pytest = "^7.3.1"
+pytest-cov = "^4.0.0"
+blue = "^0.9.1"
+ruff = "^0.0.269"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
