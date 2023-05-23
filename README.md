@@ -4,7 +4,7 @@
 
 1. Python: https://www.python.org/downloads/
 2. poetry: https://python-poetry.org/docs/
-3. run >python shell
+3. run >poetry shell
 
 ### Rodar testes
 
