@@ -1,8 +1,7 @@
 # Defing test functions for the game dataframe
 import pandas as pd
-from src.game.game import *
 
-#Utilizar pytest
+from src.game.game import *
 
 def test_create_game_df():
     """
@@ -72,5 +71,6 @@ def test_delete_game():
     assert game_df.loc[2, 'nome'] == 'Jogo 2'
     assert game_df.loc[3, 'nome'] == 'Jogo 3'
 
-if __name__ == "__main__":
+
+if __name__ == '__main__':
     test_create_game_df()
