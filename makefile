@@ -1,5 +1,5 @@
 test:
-	pytest --cov
+	python -m pytest
 
 
 lint:
