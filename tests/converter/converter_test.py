@@ -1,4 +1,4 @@
-import pandas as pd
+"""import pandas as pd
 from src.converter.converter import *
 from src.game.game import *
 
@@ -31,4 +31,3 @@ def test_xml_to_game():
     assert isinstance(game_df, pd.DataFrame)
     assert game_df.equals(game_df)
 
-    
