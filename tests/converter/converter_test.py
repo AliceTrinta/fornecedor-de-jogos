@@ -20,15 +20,14 @@ xml_data = """
 game_df = pd.DataFrame(game_data)
 
 def test_game_to_xml():
-    xml_str = game_to_xml(game_df)
-    assert isinstance(xml_str, str)
-    assert xml_str.strip().replace('\n', '') == xml_data.strip().replace('\n', '')
+    expected_xml = game_to_xml(game_df)
+    assert isinstance(expected_xml, str)
+    assert expected_xml.strip().replace('\n', '') == xml_data.strip().replace('\n', '')
 
 
 def test_xml_to_game():
-    game_df = xml_to_game(xml_data.strip().replace('\n', ''))
-    
-    assert isinstance(game_df, pd.DataFrame)
-    assert game_df.equals(game_df)
+    expected_df = xml_to_game(xml_data.strip().replace('\n', ''))
+    assert isinstance(expected_df, pd.DataFrame)
+    assert expected_df.equals(game_df)
 
     

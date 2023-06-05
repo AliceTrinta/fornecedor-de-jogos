@@ -6,5 +6,6 @@ def game_to_xml(game_data: pd.DataFrame) -> str:
 
 def xml_to_game(xml_file: str) -> pd.DataFrame:
     game_data = pd.read_xml(xml_file)
+    game_data = game_data.drop(columns=['index'])
     return game_data
 
