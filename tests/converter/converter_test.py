@@ -3,7 +3,7 @@ from src.converter.converter import *
 from src.game.game import *
 
 game_data = [
-        {'id': 1, 'nome': 'Jogo 1', 'preco': 10.0, 'quantidade': 100}
+        {'nome': 'Jogo 1', 'preco': 10.0, 'quantidade': 100}
     ]
 
 xml_data = """
@@ -11,7 +11,6 @@ xml_data = """
 <data>
   <row>
     <index>0</index>
-    <id>1</id>
     <nome>Jogo 1</nome>
     <preco>10.0</preco>
     <quantidade>100</quantidade>
