@@ -1,5 +1,6 @@
 import pandas as pd
 
+
 def create_game_df(game_data: list) -> pd.DataFrame:
     """
     Creates a dataframe with the game data as a list of dictionaries containing the game data
@@ -28,7 +29,9 @@ def insert_game(game_df: pd.DataFrame, game_dict: dict) -> pd.DataFrame:
     """
     if game_dict['nome'] in game_df['nome'].values:
         return None
-    game_df.loc[len(game_df)] = game_dict   # Inserting the game in the dataframe
+    game_df.loc[
+        len(game_df)
+    ] = game_dict   # Inserting the game in the dataframe
     return game_df
 
 
@@ -39,8 +42,12 @@ def update_game(game_df: pd.DataFrame, game_dict: dict) -> pd.DataFrame:
     :param game_dict: dict: dictionary with the game data
     """
     if game_dict['nome'] in game_df['nome'].values:
-        game_df.loc[ game_df[game_df['nome'] == game_dict['nome']].index, ['preco']] = game_dict['preco']
-        game_df.loc[ game_df[game_df['nome'] == game_dict['nome']].index, ['quantidade']] = game_dict['quantidade']
+        game_df.loc[
+            game_df[game_df['nome'] == game_dict['nome']].index, ['preco']
+        ] = game_dict['preco']
+        game_df.loc[
+            game_df[game_df['nome'] == game_dict['nome']].index, ['quantidade']
+        ] = game_dict['quantidade']
         return game_df
     return None
 
@@ -53,7 +60,5 @@ def delete_game(game_df: pd.DataFrame, name: str) -> pd.DataFrame:
     """
     if name not in game_df['nome'].values:
         return None
-    game_df.drop(
-        game_df[game_df['nome'] == name].index, inplace=True
-    )
+    game_df.drop(game_df[game_df['nome'] == name].index, inplace=True)
     return game_df

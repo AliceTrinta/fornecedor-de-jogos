@@ -17,19 +17,28 @@ def test_create_game_df():
     assert expected.loc[0, 'preco'] == result.loc[0, 'preco']
     assert expected.loc[0, 'quantidade'] == result.loc[0, 'quantidade']
 
+
 def test_find_game():
     """
     Test for the find_game function
     When receiving a DataFrame and a name of a game
     Should return the DataFrame with the game
     """
-    game_df = pd.DataFrame([{'nome': 'Jogo 1', 'preco': 10.0, 'quantidade': 100}, {'nome': 'Jogo 2', 'preco': 20.0, 'quantidade': 200}])
-    expected = pd.DataFrame([{'nome': 'Jogo 1', 'preco': 10.0, 'quantidade': 100}])
+    game_df = pd.DataFrame(
+        [
+            {'nome': 'Jogo 1', 'preco': 10.0, 'quantidade': 100},
+            {'nome': 'Jogo 2', 'preco': 20.0, 'quantidade': 200},
+        ]
+    )
+    expected = pd.DataFrame(
+        [{'nome': 'Jogo 1', 'preco': 10.0, 'quantidade': 100}]
+    )
     result = find_game(game_df, 'Jogo 1')
     assert len(result) == len(expected)
     assert expected.loc[0, 'nome'] == result.loc[0, 'nome']
     assert expected.loc[0, 'preco'] == result.loc[0, 'preco']
     assert expected.loc[0, 'quantidade'] == result.loc[0, 'quantidade']
+
 
 def test_insert_game():
     """
@@ -39,12 +48,20 @@ def test_insert_game():
     """
     game_dict_list = [{'nome': 'Jogo 1', 'preco': 10.0, 'quantidade': 100}]
     game_df = pd.DataFrame(game_dict_list)
-    expected = pd.DataFrame([{'nome': 'Jogo 1', 'preco': 10.0, 'quantidade': 100}, {'nome': 'Jogo 2', 'preco': 20.0, 'quantidade': 200}])
-    result = insert_game(game_df, {'nome': 'Jogo 2', 'preco': 20.0, 'quantidade': 200})
+    expected = pd.DataFrame(
+        [
+            {'nome': 'Jogo 1', 'preco': 10.0, 'quantidade': 100},
+            {'nome': 'Jogo 2', 'preco': 20.0, 'quantidade': 200},
+        ]
+    )
+    result = insert_game(
+        game_df, {'nome': 'Jogo 2', 'preco': 20.0, 'quantidade': 200}
+    )
     assert len(result) == len(expected)
     assert expected.loc[1, 'nome'] == result.loc[1, 'nome']
     assert expected.loc[0, 'preco'] == result.loc[0, 'preco']
     assert expected.loc[0, 'quantidade'] == result.loc[0, 'quantidade']
+
 
 def test_update_game():
     """
@@ -52,14 +69,25 @@ def test_update_game():
     When receiving a DataFrame and a dict of a game
     Should return the DataFrame with the dict modified
     """
-    game_dict_list = [{'nome': 'Jogo 1', 'preco': 10.0, 'quantidade': 100}, {'nome': 'Jogo 2', 'preco': 20.0, 'quantidade': 200}]
+    game_dict_list = [
+        {'nome': 'Jogo 1', 'preco': 10.0, 'quantidade': 100},
+        {'nome': 'Jogo 2', 'preco': 20.0, 'quantidade': 200},
+    ]
     game_df = pd.DataFrame(game_dict_list)
-    result = update_game(game_df, {'nome': 'Jogo 1', 'preco': 20.0, 'quantidade': 200})
-    expected = pd.DataFrame([{'nome': 'Jogo 1', 'preco': 20.0, 'quantidade': 200}, {'nome': 'Jogo 2', 'preco': 20.0, 'quantidade': 200}])
+    result = update_game(
+        game_df, {'nome': 'Jogo 1', 'preco': 20.0, 'quantidade': 200}
+    )
+    expected = pd.DataFrame(
+        [
+            {'nome': 'Jogo 1', 'preco': 20.0, 'quantidade': 200},
+            {'nome': 'Jogo 2', 'preco': 20.0, 'quantidade': 200},
+        ]
+    )
     assert len(result) == len(expected)
     assert expected.loc[0, 'nome'] == result.loc[0, 'nome']
     assert expected.loc[0, 'preco'] == result.loc[0, 'preco']
     assert expected.loc[0, 'quantidade'] == result.loc[0, 'quantidade']
+
 
 def test_delete_game():
     """
@@ -67,7 +95,10 @@ def test_delete_game():
     When receiving a DataFrame and a name of a game
     Should return the DataFrame without the dict of the game
     """
-    game_dict_list = [{'nome': 'Jogo 1', 'preco': 10.0, 'quantidade': 100}, {'nome': 'Jogo 2', 'preco': 20.0, 'quantidade': 200}]
+    game_dict_list = [
+        {'nome': 'Jogo 1', 'preco': 10.0, 'quantidade': 100},
+        {'nome': 'Jogo 2', 'preco': 20.0, 'quantidade': 200},
+    ]
     new_game_dict_list = [{'nome': 'Jogo 1', 'preco': 10.0, 'quantidade': 100}]
     new_game_df = pd.DataFrame(new_game_dict_list)
     game_df = pd.DataFrame(game_dict_list)

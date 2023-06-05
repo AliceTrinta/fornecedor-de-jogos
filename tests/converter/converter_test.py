@@ -1,4 +1,4 @@
-'''import pandas as pd
+"""import pandas as pd
 from src.converter.converter import *
 from src.game.game import *
 
@@ -21,4 +21,4 @@ def test_xml_to_game():
     assert game_df.loc[1, 'nome'] == 'Jogo 1'
     assert game_df.loc[2, 'nome'] == 'Jogo 2'
     assert game_df.loc[3, 'nome'] == 'Jogo 3'
-'''
+"""
