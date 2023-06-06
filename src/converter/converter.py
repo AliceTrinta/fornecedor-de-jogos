@@ -12,3 +12,7 @@ def game_to_xml(game_data: pd.DataFrame):
 def xml_to_game(xml_file):
     game_df = pd.read_xml(xml_file)
     return game_df
+
+
+def file_format_to_order_dict(file_format):
+    return

@@ -2,6 +2,8 @@
 import pandas as pd
 from src.game.game import *
 
+# implementar cenários de teste para quando retorno é nulo
+
 
 def test_create_game_df():
     """
