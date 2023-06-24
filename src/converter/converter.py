@@ -1,10 +1,7 @@
 import pandas as pd
 import xml.etree.ElementTree as ET
 
-def game_to_xml(game_data: pd.DataFrame) -> str:
-    if len(game_data.columns) != 3:
-        return None
-    
+def game_to_xml(game_data: pd.DataFrame) -> str: 
     xml_data = game_data.to_xml(root_name='data', row_name='row') 
     return xml_data
 

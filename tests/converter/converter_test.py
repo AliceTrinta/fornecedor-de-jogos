@@ -6,10 +6,6 @@ game_data = [
         {'nome': 'Jogo 1', 'preco': 10.0, 'quantidade': 100}
     ]
 
-game_data_incomplete = [
-        {'nome': 'Jogo 1', 'quantidade': 100}
-    ]
-
 xml_data = """
 <?xml version='1.0' encoding='utf-8'?>
 <data>
@@ -33,26 +29,31 @@ xml_incomplete = """
 </data>
 """
 
+xml_invalid = ""
+
 game_df = pd.DataFrame(game_data)
-game_df_incomplete = pd.DataFrame(game_data_incomplete)
 
 def test_game_to_xml():
-    expected_xml = game_to_xml(game_df)
-    assert isinstance(expected_xml, str)
-    assert expected_xml.strip().replace('\n', '') == xml_data.strip().replace('\n', '')
-    
-def test_game_to_xml_incomplete():
-    expected_xml = game_to_xml(game_df_incomplete)
-    assert expected_xml is None
+    result = game_to_xml(game_df)
+    expected = xml_data
+    assert isinstance(result, str)
+    assert result.strip().replace('\n', '') == expected.strip().replace('\n', '')
 
 def test_xml_to_game():
-    expected_df = xml_to_game(xml_data.strip().replace('\n', ''))
-    assert isinstance(expected_df, pd.DataFrame)
-    assert expected_df.equals(game_df)
+    result = xml_to_game(xml_data.strip().replace('\n', ''))
+    assert isinstance(result, pd.DataFrame)
+    expected = game_df
+    assert result.equals(expected)
     
 def test_xml_to_game_incomplete():
-    expected_df = xml_to_game(xml_incomplete.strip().replace('\n', '')) 
-    assert expected_df is None or expected_df.empty
+    expected = xml_incomplete
+    result = xml_to_game(expected.strip().replace('\n', '')) 
+    assert result is None or result.empty
+
+def test_xml_to_game_invalid():
+  expected = None
+  result = xml_to_game(xml_invalid.strip().replace('\n', '')) 
+  assert result is expected
     
 
 
