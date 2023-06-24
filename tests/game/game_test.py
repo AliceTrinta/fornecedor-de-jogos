@@ -1,5 +1,6 @@
 # Defing test functions for the game dataframe
 import pandas as pd
+import pytest
 from src.game.game import *
 
 
@@ -108,3 +109,19 @@ def test_delete_game():
     assert expected.loc[0, 'nome'] == result.loc[0, 'nome']
     assert expected.loc[0, 'preco'] == result.loc[0, 'preco']
     assert expected.loc[0, 'quantidade'] == result.loc[0, 'quantidade']
+
+
+def test_wrapper():
+    """
+    Test for the wrapper function
+    When running a function, if game_df is not a DataFrame it should raise a TypeError
+    """
+    game_dict_list = [{'nome': 'Jogo 1', 'preco': 10.0, 'quantidade': 100},
+                      {'nome': 'Jogo 2', 'preco': 20.0, 'quantidade': 200}]
+    expected = TypeError
+    
+    with pytest.raises(expected):
+        find_game(game_dict_list, 'Jogo 1')
+        insert_game(game_dict_list, {'nome': 'Jogo 2', 'preco': 20.0, 'quantidade': 200})
+        update_game(game_dict_list, {'nome': 'Jogo 1', 'preco': 20.0, 'quantidade': 200})
+        delete_game(game_dict_list, 'Jogo 2')
