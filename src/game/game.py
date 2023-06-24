@@ -1,6 +1,25 @@
 import pandas as pd
 
 
+# Implementing a wrapper
+def game_wrapper(func: callable) -> callable:
+    """
+    Wrapper for the game functions
+    :param func: callable: function to be wrapped
+    """
+    def wrapper(*args, **kwargs):
+        """
+        Wrapper for the game functions
+        :param args: list: list of arguments
+        :param kwargs: dict: dictionary of arguments
+        """
+        game_df = args[0]
+        if not isinstance(game_df, pd.DataFrame):
+            raise TypeError('game_df must be a pandas DataFrame')
+        return func(*args, **kwargs)
+    return wrapper
+
+
 def create_game_df(game_data: list) -> pd.DataFrame:
     """
     Creates a dataframe with the game data as a list of dictionaries containing the game data
@@ -10,6 +29,7 @@ def create_game_df(game_data: list) -> pd.DataFrame:
     return game_df
 
 
+@game_wrapper
 def find_game(game_df: pd.DataFrame, name: str) -> pd.DataFrame:
     """
     Searches for a game in the dataframe
@@ -21,6 +41,7 @@ def find_game(game_df: pd.DataFrame, name: str) -> pd.DataFrame:
     return game_df[game_df['nome'] == name]
 
 
+@game_wrapper
 def insert_game(game_df: pd.DataFrame, game_dict: dict) -> pd.DataFrame:
     """
     Inserts a game in the dataframe
@@ -35,6 +56,7 @@ def insert_game(game_df: pd.DataFrame, game_dict: dict) -> pd.DataFrame:
     return game_df
 
 
+@game_wrapper
 def update_game(game_df: pd.DataFrame, game_dict: dict) -> pd.DataFrame:
     """
     Updates a game in the dataframe
@@ -52,6 +74,7 @@ def update_game(game_df: pd.DataFrame, game_dict: dict) -> pd.DataFrame:
     return None
 
 
+@game_wrapper
 def delete_game(game_df: pd.DataFrame, name: str) -> pd.DataFrame:
     """
     Removes a game from the dataframe
