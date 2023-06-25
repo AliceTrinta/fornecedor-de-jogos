@@ -35,10 +35,9 @@ def buy_game(game_str, storage_str):
 
     if quantity_in_storage < quantity_asked:
         new_quantity = quantity_in_storage + 10
-        data = {}
         new_storage = update_game(
             storage,
-            data
+            {'nome': name, 'preco': price, 'quantidade': new_quantity}
         )
         new_storage_file_format = save_in_file_format(new_storage)
         return (
@@ -48,13 +47,13 @@ def buy_game(game_str, storage_str):
 
     if quantity_in_storage > quantity_asked:
         new_quantity = quantity_in_storage - quantity_asked
-        new_storage = update_game(storage, {name, price, new_quantity})
+        new_storage = update_game(storage,  {'nome': name, 'preco': price, 'quantidade': new_quantity})
         new_storage_file_format = save_in_file_format(new_storage)
         return 'Compra efetuada com sucesso', new_storage_file_format
 
     if quantity_in_storage == quantity_asked:
         new_quantity = 10
-        new_storage = update_game(storage, {name, price, new_quantity})
+        new_storage = update_game(storage,  {'nome': name, 'preco': price, 'quantidade': new_quantity})
         new_storage_file_format = save_in_file_format(new_storage)
         return 'Compra efetuada com sucesso', new_storage_file_format
 

@@ -47,3 +47,4 @@ def test_new_game_when_game_already_exists(mocker):
     expected = 'Jogo já existe no estoque'
     result = new_game('', '')
     assert expected == result
+    

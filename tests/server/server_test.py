@@ -58,7 +58,6 @@ def test_delete_from_storage_when_storage_is_empty(mocker):
     result = delete_from_storage('', '')
     assert expected == result
 
-@pytest.mark.skip
 def test_delete_from_storage_happy_path(mocker):
     """
     Test for the delete_from_storage function
