@@ -15,7 +15,7 @@ def game_wrapper(func: callable) -> callable:
         """
         game_df = args[0]
         if not isinstance(game_df, pd.DataFrame):
-            raise TypeError('game_df must be a pandas DataFrame')
+            return None
         return func(*args, **kwargs)
     return wrapper
 

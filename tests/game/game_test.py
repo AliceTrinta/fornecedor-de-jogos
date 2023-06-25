@@ -114,14 +114,16 @@ def test_delete_game():
 def test_wrapper():
     """
     Test for the wrapper function
-    When running a function, if game_df is not a DataFrame it should raise a TypeError
+    When running a function, if game_df is not a DataFrame it should return None, meaning that the function was not executed
     """
     game_dict_list = [{'nome': 'Jogo 1', 'preco': 10.0, 'quantidade': 100},
                       {'nome': 'Jogo 2', 'preco': 20.0, 'quantidade': 200}]
-    expected = TypeError
+    expected = [None, None, None, None]
     
-    with pytest.raises(expected):
-        find_game(game_dict_list, 'Jogo 1')
-        insert_game(game_dict_list, {'nome': 'Jogo 2', 'preco': 20.0, 'quantidade': 200})
-        update_game(game_dict_list, {'nome': 'Jogo 1', 'preco': 20.0, 'quantidade': 200})
-        delete_game(game_dict_list, 'Jogo 2')
+    result = []
+    result.append(find_game(game_dict_list, 'Jogo 1'))
+    result.append(insert_game(game_dict_list, {'nome': 'Jogo 2', 'preco': 20.0, 'quantidade': 200}))
+    result.append(update_game(game_dict_list, {'nome': 'Jogo 1', 'preco': 20.0, 'quantidade': 200}))
+    result.append(delete_game(game_dict_list, 'Jogo 2'))
+    
+    assert result == expected
