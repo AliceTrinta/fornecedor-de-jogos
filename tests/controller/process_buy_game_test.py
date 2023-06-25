@@ -1,12 +1,10 @@
 import pandas as pd
 from src.controller.controller import *
-from src.server.server import *
 from src.game.game import *	
 import pytest
 
-
-order = ''
-storage = ''
+order = './order.xml'
+storage = './storage.xml'
 
 def test_process_buy_game_empty_or_invalid(mocker):
     """
@@ -27,6 +25,6 @@ def test_process_buy_game_happy_path(mocker):
     """
 
     expected = True
-    mocker.patch('src.server.server.buy_game', return_value = ['Compra efetuada com sucesso', mock_scan_from_file_format])
+    mocker.patch('src.server.server.buy_game', return_value = 'Compra efetuada com sucesso')
     result = process_buy_game(order, storage)
     assert expected == result

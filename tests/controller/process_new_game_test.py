@@ -1,12 +1,11 @@
 import pandas as pd
 from src.controller.controller import *
-from src.server.server import *
 from src.game.game import *
 import pytest
 
 
-order = ''
-storage = ''
+order = './order.xml'
+storage = './storage.xml'
 
 def test_process_new_game_empty_or_invalid(mocker):
     """
