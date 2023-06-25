@@ -72,12 +72,20 @@ def new_game(game_str, storage_str):
     if storage is None:
         return 'Não há estoque. Tente novamente mais tarde'
     
+<<<<<<< HEAD
     game_from_storage = find_game(storage, game['nome'])
+=======
+    game_from_storage = find_game(storage, game['nome'].iloc[0])
+>>>>>>> 1ae278e (Fix)
     if game_from_storage:
         return 'Jogo já existe no estoque'
 
     new_storage = insert_game(
+<<<<<<< HEAD
         storage, {game.loc[0, 'nome'], game.loc[0, 'preco'], 10}
+=======
+        storage, {'nome': game['nome'].iloc[0], 'preco': game['preco'].iloc[0], 'quantidade': 10}
+>>>>>>> 1ae278e (Fix)
     )
     return save_in_file_format(new_storage)
 
@@ -95,12 +103,20 @@ def delete_from_storage(game_str, storage_str):
     if storage is None:
         return 'Não há estoque. Tente novamente mais tarde'
     
+<<<<<<< HEAD
     game_from_storage = find_game(storage, game['nome'])
+=======
+    game_from_storage = find_game(storage, game['nome'].iloc[0])
+>>>>>>> 1ae278e (Fix)
 
     if game_from_storage is None:
         return 'Jogo não existe no estoque'
 
+<<<<<<< HEAD
     new_storage = delete_game(storage, game.loc[0, 'nome'])
+=======
+    new_storage = delete_game(storage, game['nome'].iloc[0])
+>>>>>>> 1ae278e (Fix)
     return ('Jogo deletado com sucesso', save_in_file_format(new_storage))
 
 
@@ -117,13 +133,21 @@ def update_from_storage(game_str, storage_str):
     if storage is None:
         return 'Não há estoque. Tente novamente mais tarde'
     
+<<<<<<< HEAD
     game_from_storage = find_game(storage, game['nome'])
+=======
+    game_from_storage = find_game(storage, game['nome'].iloc[0])
+>>>>>>> 1ae278e (Fix)
 
     if not game_from_storage:
         return 'Jogo não existe no estoque'
 
     new_storage = update_game(
         storage,
+<<<<<<< HEAD
         {game.loc[0, 'nome'], game.loc[0, 'preco'], game.loc[0, 'quantidade']},
+=======
+        {'nome': game['nome'].iloc[0], 'preco': game['preco'].iloc[0], 'quantidade': game['nome'].iloc[0]},
+>>>>>>> 1ae278e (Fix)
     )
     return ('Jogo atualizado com sucesso', save_in_file_format(new_storage))
