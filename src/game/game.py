@@ -16,9 +16,9 @@ def find_game(game_df: pd.DataFrame, name: str) -> pd.DataFrame:
     :param game_df: pd.DataFrame: dataframe with the game data
     :param name: str: name of the game to be searched
     """
-    if name not in game_df['nome'].values:
-        return None
-    return game_df[game_df['nome'] == name]
+    if game_df['nome'].isin([name]).any():
+        return game_df[game_df['nome'] == name]
+    return None
 
 
 def insert_game(game_df: pd.DataFrame, game_dict: dict) -> pd.DataFrame:
