@@ -33,7 +33,6 @@ def test_new_game_happy_path():
     result = new_game('', '')
     assert expected == result
 
-
 @pytest.mark.skip
 def test_new_game_when_game_already_exists(mocker):
     """
@@ -44,6 +43,7 @@ def test_new_game_when_game_already_exists(mocker):
     """
     mock_scan_from_file_format = mocker.patch('src.server.server.scan_from_file_format')
     mock_scan_from_file_format.side_effect = [game_df, storage_with_game_df]
+    
     expected = 'Jogo já existe no estoque'
     result = new_game('', '')
     assert expected == result

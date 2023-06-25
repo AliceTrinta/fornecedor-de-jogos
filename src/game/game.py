@@ -63,7 +63,8 @@ def update_game(game_df: pd.DataFrame, game_dict: dict) -> pd.DataFrame:
     :param game_df: pd.DataFrame: dataframe with the game data
     :param game_dict: dict: dictionary with the game data
     """
-    if game_dict['nome'] in game_df['nome'].values:
+    name = game_dict['nome']
+    if game_df['nome'].isin([name]).any():
         game_df.loc[
             game_df[game_df['nome'] == game_dict['nome']].index, ['preco']
         ] = game_dict['preco']

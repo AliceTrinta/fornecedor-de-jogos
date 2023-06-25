@@ -1,5 +1,6 @@
 from src.server.server import *
 import pytest
+import logging
 
 
 order = ''
@@ -66,7 +67,7 @@ def test_buy_game_when_game_does_not_exists_on_storage(mocker):
     result = buy_game('', '')
     assert expected == result
 
-@pytest.mark.skip #Mergear converter
+@pytest.mark.skip
 def test_buy_game_happy_path(mocker):
     """
     Test for the buy_game function
@@ -121,3 +122,11 @@ def test_buy_game_when_there_are_less_games_than_requested():
     )
     result = buy_game('', '')
     assert expected == result
+
+def test():
+    game = game_to_xml(game_df).strip().replace('\n', '')
+    storage = game_to_xml(storage_with_game_df).strip().replace('\n', '')
+    logging.info(game)
+    logging.info(storage)
+    result = buy_game(game, storage)
+    assert result == None

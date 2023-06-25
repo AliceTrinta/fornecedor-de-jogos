@@ -1,7 +1,6 @@
 from src.converter.converter import *
 from src.game.game import *
 
-
 def scan_from_file_format(file_format_string):
     return xml_to_game(file_format_string)
 
@@ -24,21 +23,22 @@ def buy_game(game_str, storage_str):
     if storage is None:
         return 'Não há estoque. Tente novamente mais tarde'
 
-    game_from_storage = find_game(storage, game['nome'])
+    game_from_storage = find_game(storage, game['nome'].iloc[0])
 
-    if not game_from_storage:
+    if game_from_storage is None:
         return 'Jogo não existe no estoque'
     
-    name = game.loc[0, 'nome']
-    quantity_in_storage = game_from_storage.loc[0, 'quantidade']
-    quantity_asked = game.loc[0, 'quantidade']
-    price = game_from_storage.loc[0, 'preco']
+    name = game['nome'].iloc[0]
+    quantity_in_storage = game_from_storage['quantidade'].iloc[0]
+    quantity_asked = game_from_storage['quantidade'].iloc[0]
+    price = game_from_storage['preco'].iloc[0]
 
     if quantity_in_storage < quantity_asked:
         new_quantity = quantity_in_storage + 10
+        data = {}
         new_storage = update_game(
             storage,
-            {name, game_from_storage.loc[0, 'preco'], new_quantity},
+            data
         )
         new_storage_file_format = save_in_file_format(new_storage)
         return (
@@ -98,7 +98,7 @@ def delete_from_storage(game_str, storage_str):
     
     game_from_storage = find_game(storage, game['nome'])
 
-    if not game_from_storage:
+    if game_from_storage is None:
         return 'Jogo não existe no estoque'
 
     new_storage = delete_game(storage, game.loc[0, 'nome'])

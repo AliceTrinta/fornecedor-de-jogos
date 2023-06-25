@@ -55,6 +55,3 @@ def test_xml_to_game_invalid():
   result = xml_to_game(xml_invalid.strip().replace('\n', '')) 
   assert result is expected
     
-
-
-
