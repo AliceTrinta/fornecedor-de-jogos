@@ -1,76 +1,129 @@
 # Defing test functions for the game dataframe
 import pandas as pd
-
+import pytest
 from src.game.game import *
+
 
 def test_create_game_df():
     """
-    Test function for the create_game_df function
+    Test for the create_game_df function
+    When receiving a list of dict with games
+    Should return a DataFrame with the list content
     """
-    game_data = [
-        {'id': 1, 'nome': 'Jogo 1', 'preco': 10.0, 'quantidade': 100},
-        {'id': 2, 'nome': 'Jogo 2', 'preco': 20.0, 'quantidade': 200},
-        {'id': 3, 'nome': 'Jogo 3', 'preco': 30.0, 'quantidade': 300},
-    ]
-    game_df = create_game_df(game_data)
-    assert isinstance(game_df, pd.DataFrame)
-    assert len(game_df) == 3
-    assert game_df.loc[1, 'nome'] == 'Jogo 1'
-    assert game_df.loc[2, 'nome'] == 'Jogo 2'
-    assert game_df.loc[3, 'nome'] == 'Jogo 3'
+    game_dict_list = [{'nome': 'Jogo 1', 'preco': 10.0, 'quantidade': 100}]
+    game_df = pd.DataFrame(game_dict_list)
+    expected = game_df
+    result = create_game_df(game_dict_list)
+    assert expected.loc[0, 'nome'] == result.loc[0, 'nome']
+    assert expected.loc[0, 'preco'] == result.loc[0, 'preco']
+    assert expected.loc[0, 'quantidade'] == result.loc[0, 'quantidade']
 
 
 def test_find_game():
     """
-    Test function for the find_game function
+    Test for the find_game function
+    When receiving a DataFrame and a name of a game
+    Should return the DataFrame with the game
     """
-    game_data = [
-        {'id': 1, 'nome': 'Jogo 1', 'preco': 10.0, 'quantidade': 100},
-        {'id': 2, 'nome': 'Jogo 2', 'preco': 20.0, 'quantidade': 200},
-        {'id': 3, 'nome': 'Jogo 3', 'preco': 30.0, 'quantidade': 300},
-    ]
-    game_df = create_game_df(game_data)
-    game = find_game(game_df, 'Jogo 1')
-    assert isinstance(game, pd.DataFrame)
-    assert len(game) == 1
-    assert game.loc[1, 'nome'] == 'Jogo 1'
-    assert game.loc[1, 'preco'] == 10.0
+    game_df = pd.DataFrame(
+        [
+            {'nome': 'Jogo 1', 'preco': 10.0, 'quantidade': 100},
+            {'nome': 'Jogo 2', 'preco': 20.0, 'quantidade': 200},
+        ]
+    )
+    expected = pd.DataFrame(
+        [{'nome': 'Jogo 1', 'preco': 10.0, 'quantidade': 100}]
+    )
+    result = find_game(game_df, 'Jogo 1')
+    assert len(result) == len(expected)
+    assert expected.loc[0, 'nome'] == result.loc[0, 'nome']
+    assert expected.loc[0, 'preco'] == result.loc[0, 'preco']
+    assert expected.loc[0, 'quantidade'] == result.loc[0, 'quantidade']
 
 
 def test_insert_game():
     """
-    Test function for the insert_game function
+    Test for the insert_game function
+    When receiving a DataFrame and a dict of a game
+    Should return the DataFrame with the dict of the game appended
     """
-    game_data = [
-        {'id': 1, 'nome': 'Jogo 1', 'preco': 10.0, 'quantidade': 100},
-        {'id': 2, 'nome': 'Jogo 2', 'preco': 20.0, 'quantidade': 200},
-        {'id': 3, 'nome': 'Jogo 3', 'preco': 30.0, 'quantidade': 300},
+    game_dict_list = [{'nome': 'Jogo 1', 'preco': 10.0, 'quantidade': 100}]
+    game_df = pd.DataFrame(game_dict_list)
+    expected = pd.DataFrame(
+        [
+            {'nome': 'Jogo 1', 'preco': 10.0, 'quantidade': 100},
+            {'nome': 'Jogo 2', 'preco': 20.0, 'quantidade': 200},
+        ]
+    )
+    result = insert_game(
+        game_df, {'nome': 'Jogo 2', 'preco': 20.0, 'quantidade': 200}
+    )
+    assert len(result) == len(expected)
+    assert expected.loc[1, 'nome'] == result.loc[1, 'nome']
+    assert expected.loc[0, 'preco'] == result.loc[0, 'preco']
+    assert expected.loc[0, 'quantidade'] == result.loc[0, 'quantidade']
+
+
+def test_update_game():
+    """
+    Test for the update_game function
+    When receiving a DataFrame and a dict of a game
+    Should return the DataFrame with the dict modified
+    """
+    game_dict_list = [
+        {'nome': 'Jogo 1', 'preco': 10.0, 'quantidade': 100},
+        {'nome': 'Jogo 2', 'preco': 20.0, 'quantidade': 200},
     ]
-    game_df = create_game_df(game_data)
-    game_dict = {'id': 4, 'nome': 'Jogo 4', 'preco': 40.0, 'quantidade': 400}
-    game_df = insert_game(game_df, game_dict)
-    assert isinstance(game_df, pd.DataFrame)
-    assert len(game_df) == 4
-    assert game_df.loc[4, 'nome'] == 'Jogo 4'
-    assert game_df.loc[4, 'preco'] == 40.0
+    game_df = pd.DataFrame(game_dict_list)
+    result = update_game(
+        game_df, {'nome': 'Jogo 1', 'preco': 20.0, 'quantidade': 200}
+    )
+    expected = pd.DataFrame(
+        [
+            {'nome': 'Jogo 1', 'preco': 20.0, 'quantidade': 200},
+            {'nome': 'Jogo 2', 'preco': 20.0, 'quantidade': 200},
+        ]
+    )
+    assert len(result) == len(expected)
+    assert expected.loc[0, 'nome'] == result.loc[0, 'nome']
+    assert expected.loc[0, 'preco'] == result.loc[0, 'preco']
+    assert expected.loc[0, 'quantidade'] == result.loc[0, 'quantidade']
 
 
 def test_delete_game():
     """
-    Test function for the delete_game function
+    Test for the delete_game function
+    When receiving a DataFrame and a name of a game
+    Should return the DataFrame without the dict of the game
     """
-    game_data = [
-        {'id': 1, 'nome': 'Jogo 1', 'preco': 10.0, 'quantidade': 100},
-        {'id': 2, 'nome': 'Jogo 2', 'preco': 20.0, 'quantidade': 200},
-        {'id': 3, 'nome': 'Jogo 3', 'preco': 30.0, 'quantidade': 300},
+    game_dict_list = [
+        {'nome': 'Jogo 1', 'preco': 10.0, 'quantidade': 100},
+        {'nome': 'Jogo 2', 'preco': 20.0, 'quantidade': 200},
     ]
-    game_df = create_game_df(game_data)
-    game_df = delete_game(game_df, 'Jogo 1')
-    assert isinstance(game_df, pd.DataFrame)
-    assert len(game_df) == 2
-    assert game_df.loc[2, 'nome'] == 'Jogo 2'
-    assert game_df.loc[3, 'nome'] == 'Jogo 3'
+    new_game_dict_list = [{'nome': 'Jogo 1', 'preco': 10.0, 'quantidade': 100}]
+    new_game_df = pd.DataFrame(new_game_dict_list)
+    game_df = pd.DataFrame(game_dict_list)
+    result = delete_game(game_df, 'Jogo 2')
+    expected = new_game_df
+    assert len(result) == len(expected)
+    assert expected.loc[0, 'nome'] == result.loc[0, 'nome']
+    assert expected.loc[0, 'preco'] == result.loc[0, 'preco']
+    assert expected.loc[0, 'quantidade'] == result.loc[0, 'quantidade']
 
 
-if __name__ == '__main__':
-    test_create_game_df()
+def test_wrapper():
+    """
+    Test for the wrapper function
+    When running a function, if game_df is not a DataFrame it should return None, meaning that the function was not executed
+    """
+    game_dict_list = [{'nome': 'Jogo 1', 'preco': 10.0, 'quantidade': 100},
+                      {'nome': 'Jogo 2', 'preco': 20.0, 'quantidade': 200}]
+    expected = [None, None, None, None]
+    
+    result = []
+    result.append(find_game(game_dict_list, 'Jogo 1'))
+    result.append(insert_game(game_dict_list, {'nome': 'Jogo 2', 'preco': 20.0, 'quantidade': 200}))
+    result.append(update_game(game_dict_list, {'nome': 'Jogo 1', 'preco': 20.0, 'quantidade': 200}))
+    result.append(delete_game(game_dict_list, 'Jogo 2'))
+    
+    assert result == expected

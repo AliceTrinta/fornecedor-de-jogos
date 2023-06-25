@@ -2,22 +2,59 @@ import pandas as pd
 from src.converter.converter import *
 from src.game.game import *
 
-
-def test_game_to_xml():
-    game_data = [
-        {'id': 1, 'nome': 'Jogo 1', 'preco': 10.0, 'quantidade': 100},
-        {'id': 2, 'nome': 'Jogo 2', 'preco': 20.0, 'quantidade': 200},
-        {'id': 3, 'nome': 'Jogo 3', 'preco': 30.0, 'quantidade': 300},
+game_data = [
+        {'nome': 'Jogo 1', 'preco': 10.0, 'quantidade': 100}
     ]
 
-    game_df = create_game_df(game_data)
-    game_to_xml(game_df)   # tem ainda que checar se o arquivo xml foi feito
+xml_data = """
+<?xml version='1.0' encoding='utf-8'?>
+<data>
+  <row>
+    <index>0</index>
+    <nome>Jogo 1</nome>
+    <preco>10.0</preco>
+    <quantidade>100</quantidade>
+  </row>
+</data>
+"""
 
+xml_incomplete = """
+<?xml version='1.0' encoding='utf-8'?>
+<data>
+  <row>
+    <index>0</index>
+    <preco>10.0</preco>
+    <quantidade>100</quantidade>
+  </row>
+</data>
+"""
+
+xml_invalid = ""
+
+game_df = pd.DataFrame(game_data)
+
+def test_game_to_xml():
+    result = game_to_xml(game_df)
+    expected = xml_data
+    assert isinstance(result, str)
+    assert result.strip().replace('\n', '') == expected.strip().replace('\n', '')
 
 def test_xml_to_game():
-    game_df = xml_to_game('game_data.xml')
-    assert isinstance(game_df, pd.DataFrame)
-    assert len(game_df) == 3
-    assert game_df.loc[1, 'nome'] == 'Jogo 1'
-    assert game_df.loc[2, 'nome'] == 'Jogo 2'
-    assert game_df.loc[3, 'nome'] == 'Jogo 3'
+    result = xml_to_game(xml_data.strip().replace('\n', ''))
+    assert isinstance(result, pd.DataFrame)
+    expected = game_df
+    assert result.equals(expected)
+    
+def test_xml_to_game_incomplete():
+    expected = xml_incomplete
+    result = xml_to_game(expected.strip().replace('\n', '')) 
+    assert result is None or result.empty
+
+def test_xml_to_game_invalid():
+  expected = None
+  result = xml_to_game(xml_invalid.strip().replace('\n', '')) 
+  assert result is expected
+    
+
+
+
