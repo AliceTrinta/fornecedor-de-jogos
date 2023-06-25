@@ -23,8 +23,12 @@ def xml_to_game(xml_file: str) -> pd.DataFrame:
         
     except ET.ParseError:
         return None
-    
-    
-    
-    
 
+      
+      
+      
+      
+      
+      
+      
+      
