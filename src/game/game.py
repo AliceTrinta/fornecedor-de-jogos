@@ -36,9 +36,9 @@ def find_game(game_df: pd.DataFrame, name: str) -> pd.DataFrame:
     :param game_df: pd.DataFrame: dataframe with the game data
     :param name: str: name of the game to be searched
     """
-    if name not in game_df['nome'].values:
-        return None
-    return game_df[game_df['nome'] == name]
+    if game_df['nome'].isin([name]).any():
+        return game_df[game_df['nome'] == name]
+    return None
 
 
 @game_wrapper
@@ -63,7 +63,8 @@ def update_game(game_df: pd.DataFrame, game_dict: dict) -> pd.DataFrame:
     :param game_df: pd.DataFrame: dataframe with the game data
     :param game_dict: dict: dictionary with the game data
     """
-    if game_dict['nome'] in game_df['nome'].values:
+    name = game_dict['nome']
+    if game_df['nome'].isin([name]).any():
         game_df.loc[
             game_df[game_df['nome'] == game_dict['nome']].index, ['preco']
         ] = game_dict['preco']
