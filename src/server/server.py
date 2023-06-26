@@ -73,12 +73,12 @@ def new_game(game_str, storage_str):
     if storage is None:
         return 'Não há estoque. Tente novamente mais tarde'
     
-    game_from_storage = find_game(storage, game['nome'])
-    if game_from_storage:
+    game_from_storage = find_game(storage, game['nome'].iloc[0])
+    if game_from_storage is not None:
         return 'Jogo já existe no estoque'
 
     new_storage = insert_game(
-        storage, {game.loc[0, 'nome'], game.loc[0, 'preco'], 10}
+        storage, {'nome': game['nome'].iloc[0], 'preco': game['preco'].iloc[0], 'quantidade': 10}
     )
     return save_in_file_format(new_storage)
 
@@ -96,12 +96,12 @@ def delete_from_storage(game_str, storage_str):
     if storage is None:
         return 'Não há estoque. Tente novamente mais tarde'
     
-    game_from_storage = find_game(storage, game['nome'])
+    game_from_storage = find_game(storage, game['nome'].iloc[0])
 
     if game_from_storage is None:
         return 'Jogo não existe no estoque'
 
-    new_storage = delete_game(storage, game.loc[0, 'nome'])
+    new_storage = delete_game(storage, game['nome'].iloc[0])
     return ('Jogo deletado com sucesso', save_in_file_format(new_storage))
 
 
@@ -118,13 +118,13 @@ def update_from_storage(game_str, storage_str):
     if storage is None:
         return 'Não há estoque. Tente novamente mais tarde'
     
-    game_from_storage = find_game(storage, game['nome'])
+    game_from_storage = find_game(storage, game['nome'].iloc[0])
 
-    if not game_from_storage:
+    if game_from_storage is None:
         return 'Jogo não existe no estoque'
 
     new_storage = update_game(
         storage,
-        {game.loc[0, 'nome'], game.loc[0, 'preco'], game.loc[0, 'quantidade']},
+        {'nome': game['nome'].iloc[0], 'preco': game['preco'].iloc[0], 'quantidade': game['quantidade'].iloc[0]},
     )
     return ('Jogo atualizado com sucesso', save_in_file_format(new_storage))
