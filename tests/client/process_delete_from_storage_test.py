@@ -29,10 +29,9 @@ def test_process_delete_from_storage_happy_path(mocker):
     When receiving an valid path string
     Should return True
     """
-    order = '/home/lucalinux/modular/fornecedor-de-jogos/tests/client/order.xml'
-    storage = '/home/lucalinux/modular/fornecedor-de-jogos/tests/client/storage.xml'
+    order = 'solicitacao.xml'
+    storage = 'storage.xml'
     
     expected = True
-    mocker.patch('src.server.server.delete_from_storage', return_value = ['Jogo deletado com sucesso', [storage]])
     result = process_delete_from_storage(order, storage)
     assert expected == result
