@@ -48,7 +48,8 @@ def insert_game(game_df: pd.DataFrame, game_dict: dict) -> pd.DataFrame:
     :param game_df: pd.DataFrame: dataframe with the game data
     :param game_dict: dict: dictionary with the game data
     """
-    if game_dict['nome'] in game_df['nome'].values:
+    name = game_dict['nome']
+    if game_df['nome'].isin([name]).any():
         return None
     game_df.loc[
         len(game_df)

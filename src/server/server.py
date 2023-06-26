@@ -24,13 +24,14 @@ def buy_game(game_str, storage_str):
         return 'Não há estoque. Tente novamente mais tarde'
 
     game_from_storage = find_game(storage, game['nome'].iloc[0])
+    game_from_buy = find_game(game, game['nome'].iloc[0])
 
     if game_from_storage is None:
         return 'Jogo não existe no estoque'
     
     name = game['nome'].iloc[0]
     quantity_in_storage = game_from_storage['quantidade'].iloc[0]
-    quantity_asked = game_from_storage['quantidade'].iloc[0]
+    quantity_asked = game_from_buy['quantidade'].iloc[0]
     price = game_from_storage['preco'].iloc[0]
 
     if quantity_in_storage < quantity_asked:

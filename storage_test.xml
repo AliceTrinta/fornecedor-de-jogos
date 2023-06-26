@@ -1,0 +1,16 @@
+Compra efetuada com sucesso
+<?xml version='1.0' encoding='utf-8'?>
+<data>
+  <row>
+    <index>0</index>
+    <nome>Jogo 1</nome>
+    <preco>10.0</preco>
+    <quantidade>100</quantidade>
+  </row>
+  <row>
+    <index>1</index>
+    <nome>Jogo 2</nome>
+    <preco>10.0</preco>
+    <quantidade>2200</quantidade>
+  </row>
+</data>
