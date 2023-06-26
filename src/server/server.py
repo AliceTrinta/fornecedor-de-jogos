@@ -73,7 +73,7 @@ def new_game(game_str, storage_str):
         return 'Não há estoque. Tente novamente mais tarde'
     
     game_from_storage = find_game(storage, game['nome'].iloc[0])
-    if game_from_storage:
+    if game_from_storage is not None:
         return 'Jogo já existe no estoque'
 
     new_storage = insert_game(
@@ -119,7 +119,7 @@ def update_from_storage(game_str, storage_str):
     
     game_from_storage = find_game(storage, game['nome'].iloc[0])
 
-    if not game_from_storage:
+    if game_from_storage is None:
         return 'Jogo não existe no estoque'
 
     new_storage = update_game(
