@@ -23,10 +23,9 @@ def test_process_buy_game_happy_path(mocker):
     When receiving an valid path string
     Should return True
     """
-    order = '/home/lucalinux/modular/fornecedor-de-jogos/tests/client/order.xml'
-    storage = '/home/lucalinux/modular/fornecedor-de-jogos/tests/client/storage.xml'
+    order = 'solicitacao.xml'
+    storage = 'storage.xml'
 
     expected = True
-    mocker.patch('src.server.server.buy_game', return_value = 'Compra efetuada com sucesso')
     result = process_buy_game(order, storage)
     assert expected == result
