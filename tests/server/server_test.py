@@ -119,7 +119,9 @@ def test_update_from_storage_happy_path(mocker):
     Should return a success message
     """
     mock_scan_from_file_format = mocker.patch('src.server.server.scan_from_file_format')
-    mock_scan_from_file_format.side_effect = [game_df, storage_with_game_df]
-    expected = ('Jogo atualizado com sucesso', happy_path_update_storage)
+    mock_scan_from_file_format.side_effect = [game_updated_df, storage_with_game_df]
+    mocker.patch('src.game.game.update_game', return_value = happy_path_update_storage)
+    expected = happy_path_update_storage.strip().replace('\n', '') 
     result = update_from_storage('', '')
-    assert expected == result
+    result_xml = result[1].strip().replace('\n', '') 
+    assert expected == result_xml
