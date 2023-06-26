@@ -1,9 +1,9 @@
 import pandas as pd
-import src.server
+from src.server.server import *
 
 def process_buy_game(gamePath, storagePath) -> bool:
     """
-    Calls buy_game passing file path as param
+    Calls buy_game passing file path cont as param
     :param gamePath: Path of the game xml file 
     :param storagePath: Path of the storage xml file 
     """
@@ -12,18 +12,18 @@ def process_buy_game(gamePath, storagePath) -> bool:
     except FileNotFoundError as exception1:
         print(f"Arquivo não existe\n"f"{exception1}")
         return False
-
     try:
         storage = open(storagePath, 'r')
     except FileNotFoundError as exception1:
         print(f"Arquivo não existe\n"f"{exception1}")
         return False
 
-    print(buy_game(game,storage))
+
+    print(buy_game(gamePath, storagePath))
     return True
     
 
-def process_new_game(gamePath, storagePath) -> None:
+def process_new_game(gamePath, storagePath) -> bool:
     """
     Calls new_game passing file path as param
     :param gamePath: Path of the game xml file 
@@ -33,17 +33,19 @@ def process_new_game(gamePath, storagePath) -> None:
         game = open(gamePath, 'r')
     except FileNotFoundError as exception1:
         print(f"Arquivo não existe\n"f"{exception1}")
-    
+        return False
     try:
         storage = open(storagePath, 'r')
     except FileNotFoundError as exception1:
         print(f"Arquivo não existe\n"f"{exception1}")
+        return False
 
-    print(new_game(game,storage))
 
+    print(new_game(gamePath, storagePath))
+    return True
         
 
-def process_delete_from_storage(gamePath, storagePath) -> None:
+def process_delete_from_storage(gamePath, storagePath) -> bool:
     """
     Calls delete_from_storage passing file path as param
     :param gamePath: Path of the game xml file 
@@ -53,17 +55,20 @@ def process_delete_from_storage(gamePath, storagePath) -> None:
         game = open(gamePath, 'r')
     except FileNotFoundError as exception1:
         print(f"Arquivo não existe\n"f"{exception1}")
-    
+        return False
     try:
         storage = open(storagePath, 'r')
     except FileNotFoundError as exception1:
         print(f"Arquivo não existe\n"f"{exception1}")
-
-    print(delete_from_storage(game,storage))
-
+        return False
 
 
-def process_update_from_storage(gamePath, storagePath) -> None:
+    print(delete_from_storage(gamePath, storagePath))
+    return True
+
+
+
+def process_update_from_storage(gamePath, storagePath) -> bool:
     """
     Calls update_from_storage passing file path as param
     :param gamePath: Path of the game xml file 
@@ -73,43 +78,12 @@ def process_update_from_storage(gamePath, storagePath) -> None:
         game = open(gamePath, 'r')
     except FileNotFoundError as exception1:
         print(f"Arquivo não existe\n"f"{exception1}")
-    
+        return False
     try:
         storage = open(storagePath, 'r')
     except FileNotFoundError as exception1:
         print(f"Arquivo não existe\n"f"{exception1}")
+        return False
 
-    print(update_from_storage(game,storage))
-    
-'''
-def process_save_in_storage(path: str) -> None:
-    """
-    Calls save_in_storage passing file path as param
-    :param path: str: Path of the xml file 
-    """
-    try:
-        xml = open(path, 'r')
-    except FileNotFoundError as exception1:
-        print(f"Arquivo não existe\n"f"{exception1}")
-
-
-    match new_game(xml):
-        case 0:
-            print("Solicitação feita com sucesso")
-        case 1:
-            print("Jogos já existem no estoque")
-        case 3:
-            print("Jogo(s) já existe(m) no estoque")
-
-def process_scan_storage(path: str) -> None:
-    """
-    Calls scan_storage passing file path as param
-    :param path: str: Path of the xml file 
-    """
-    try:
-        storage = open(path, 'r')
-    except FileNotFoundError as exception1:
-        print(f"Arquivo não existe\n"f"{exception1}")
-    
-    print(f"{scan_storage(xml)}")
-'''
+    print(update_from_storage(gamePath, storagePath))
+    return True

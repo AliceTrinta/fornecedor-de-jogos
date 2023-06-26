@@ -1,11 +1,11 @@
 import pandas as pd
-from src.controller.controller import *
+from src.client.client import *
 from src.game.game import *	
 import pytest
 
 
-order = './order.xml'
-storage = './storage.xml'
+order = ''
+storage = ''
 
 def test_process_delete_from_storage_empty_or_invalid(mocker):
     """
@@ -13,9 +13,14 @@ def test_process_delete_from_storage_empty_or_invalid(mocker):
     When receiving an empty/invalid path string
     Should return False
     """
+    order = ''
+    storage = ''
+
     expected = False
     result = process_delete_from_storage(order, storage)
     assert expected == result
+
+
 
 
 def test_process_delete_from_storage_happy_path(mocker):
@@ -24,8 +29,10 @@ def test_process_delete_from_storage_happy_path(mocker):
     When receiving an valid path string
     Should return True
     """
-
+    order = '/home/lucalinux/modular/fornecedor-de-jogos/tests/client/order.xml'
+    storage = '/home/lucalinux/modular/fornecedor-de-jogos/tests/client/storage.xml'
+    
     expected = True
-    mocker.patch('src.server.server.delete_from_storage', return_value = ['Jogo deletado com sucesso', [mock]])
+    mocker.patch('src.server.server.delete_from_storage', return_value = ['Jogo deletado com sucesso', [storage]])
     result = process_delete_from_storage(order, storage)
     assert expected == result

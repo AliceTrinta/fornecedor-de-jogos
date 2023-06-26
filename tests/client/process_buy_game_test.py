@@ -1,10 +1,10 @@
 import pandas as pd
-from src.controller.controller import *
+from src.client.client import *
 from src.game.game import *	
 import pytest
 
-order = './order.xml'
-storage = './storage.xml'
+order = ''
+storage = ''
 
 def test_process_buy_game_empty_or_invalid(mocker):
     """
@@ -23,6 +23,8 @@ def test_process_buy_game_happy_path(mocker):
     When receiving an valid path string
     Should return True
     """
+    order = '/home/lucalinux/modular/fornecedor-de-jogos/tests/client/order.xml'
+    storage = '/home/lucalinux/modular/fornecedor-de-jogos/tests/client/storage.xml'
 
     expected = True
     mocker.patch('src.server.server.buy_game', return_value = 'Compra efetuada com sucesso')
