@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<data>
+  <row>
+    <index>0</index>
+    <nome>Jogo 1</nome>
+    <preco>10.0</preco>
+    <quantidade>100</quantidade>
+  </row>
+  <row>
+    <index>1</index>
+    <nome>Jogo 2</nome>
+    <preco>20.0</preco>
+    <quantidade>200</quantidade>
+  </row>
+  <row>
+    <index>2</index>
+    <nome>Jogo 3</nome>
+    <preco>30.0</preco>
+    <quantidade>300</quantidade>
+  </row>
+</data>
